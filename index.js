@@ -22,6 +22,17 @@ async function run() {
   try {
     await client.connect();
     console.log("DB Connected");
+
+    const taskCollection = client.db("task_management_app").collection("tasks");
+
+    app.get("/todotask", async (req, res) => {
+      const tasks = await taskCollection.find().toArray();
+      res.send(tasks);
+    });
+
+    //
+
+    //
   } finally {
     //
   }
