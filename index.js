@@ -32,6 +32,7 @@ async function run() {
       res.send(tasks);
     });
 
+    // get api to load specific todo task detail
     app.get("/all-todo-task/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
