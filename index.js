@@ -48,6 +48,7 @@ async function run() {
       res.send(result);
     });
 
+    // delete api to delete specific pending todo task
     app.delete("/all-todo-task/", async (req, res) => {
       const id = req.query.id;
       console.log(id);
