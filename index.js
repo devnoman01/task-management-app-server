@@ -57,6 +57,7 @@ async function run() {
       res.send(result);
     });
 
+    // patch api to update task title or update as completed
     app.patch("/all-todo-task/:id", async (req, res) => {
       const id = req.params.id;
       const data = req.body;
