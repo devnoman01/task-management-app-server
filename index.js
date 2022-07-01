@@ -24,10 +24,8 @@ async function run() {
     console.log("DB Connected");
 
     const taskCollection = client.db("task_management_app").collection("tasks");
-    // const completedTaskCollection = client
-    //   .db("task_management_app")
-    //   .collection("completed_tasks");
 
+    // get api to load all pending todo task
     app.get("/all-todo-task", async (req, res) => {
       const query = { status: "pending" };
       const tasks = await taskCollection.find(query).toArray();
@@ -41,18 +39,12 @@ async function run() {
       res.send(task);
     });
 
-    // post task
     app.post("/all-todo-task", async (req, res) => {
       const value = req.body;
       console.log(value);
       const result = await taskCollection.insertOne(value);
       res.send(result);
     });
-
-    // app.get("/home-todo-task", async (req, res) => {
-    //   const tasks = await taskCollection.find().toArray();
-    //   res.send(tasks);
-    // });
 
     app.delete("/all-todo-task/", async (req, res) => {
       const id = req.query.id;
@@ -62,15 +54,6 @@ async function run() {
       res.send(result);
     });
 
-    // app.delete("/todo-task-completed/", async (req, res) => {
-    //   const id = req.query.id;
-    //   console.log(id);
-    //   const query = { _id: ObjectId(id) };
-    //   const result = await taskCollection.deleteOne(query);
-    //   res.send(result);
-    // });
-
-    // api for updaing task title
     app.patch("/all-todo-task/:id", async (req, res) => {
       const id = req.params.id;
       const data = req.body;
@@ -102,12 +85,7 @@ async function run() {
       const tasks = await taskCollection.find(query).toArray();
       res.send(tasks);
     });
-
-    //
-
-    //
   } finally {
-    //
   }
 }
 run().catch(console.dir);
