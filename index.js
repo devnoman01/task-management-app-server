@@ -66,6 +66,7 @@ async function run() {
       console.log(data);
       const key = Object.keys(data);
       if (key[0] == "newTitle") {
+        // update task title
         const updatedTask = {
           $set: {
             title: data.newTitle,
@@ -74,6 +75,7 @@ async function run() {
         const updateTask = await taskCollection.updateOne(filter, updatedTask);
         res.send(updateTask);
       } else {
+        // update task status
         const updatedTask = {
           $set: {
             status: data.status,
@@ -84,12 +86,14 @@ async function run() {
       }
     });
 
+    // get api to load all completed task
     app.get("/completed-task", async (req, res) => {
       const query = { status: "completed" };
       const tasks = await taskCollection.find(query).toArray();
       res.send(tasks);
     });
   } finally {
+    //
   }
 }
 run().catch(console.dir);
